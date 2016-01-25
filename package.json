@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src --out-file index.js",
     "prepublish": "in-publish && npm t || not-in-publish && npm run build",
-    "install-precommit": "ln -s ./pre-commit.sh .git/hooks/pre-commit",
+    "install-precommit": "ln -s $PWD/pre-commit.sh $PWD/.git/hooks/pre-commit",
     "test": "npm run build && tape -r babel-register test.js | tap-difflet"
   },
   "files": [
