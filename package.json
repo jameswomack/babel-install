@@ -1,0 +1,51 @@
+{
+  "name": "babel-install",
+  "version": "1.0.0-alpha.0",
+  "description": "Declare & install Babel plugins & transforms the easy way",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-file index.js",
+    "prepublish": "in-publish && npm t || not-in-publish && npm run build",
+    "install-precommit": "ln -s ./pre-commit.sh .git/hooks/pre-commit",
+    "test": "npm run build && tape -r babel-register test.js | tap-difflet"
+  },
+  "files": [
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jameswomack/babel-install.git"
+  },
+  "keywords": [
+    "babel",
+    "install",
+    "declare",
+    "babelrc",
+    "sync",
+    "merge",
+    "cli",
+    "programatically",
+    "save",
+    "both",
+    "npm"
+  ],
+  "author": "James J. Womack (@james_womack)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jameswomack/babel-install/issues"
+  },
+  "homepage": "https://github.com/jameswomack/babel-install#readme",
+  "dependencies": {
+    "in-publish": "2.0.0",
+    "yargs-parser": "1.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "6.4.5",
+    "babel-plugin-add-module-exports": "0.1.2",
+    "babel-preset-es2015": "6.3.13",
+    "babel-preset-stage-0": "6.3.13",
+    "babel-register": "6.4.3",
+    "tap-difflet": "0.4.0",
+    "tape": "4.4.0"
+  }
+}
