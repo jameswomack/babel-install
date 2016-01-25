@@ -2,6 +2,8 @@
 
 ## Declare & install Babel plugins & transforms the easy way
 
+![Screengrabs](http://i.imgur.com/Fe0vzkd.gif)
+
 ### Getting started
 From the command line
 ```sh
