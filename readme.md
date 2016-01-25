@@ -1,6 +1,6 @@
 # babel-install
 
-## Declare & install Babel plugins & transforms the easy way
+## Declare &amp; install Babel plugins &amp; transforms the easy way
 
 ![Screengrabs](http://i.imgur.com/Fe0vzkd.gif)
 
