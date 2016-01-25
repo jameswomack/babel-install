@@ -2,6 +2,7 @@
 
 ## Declare & install Babel plugins & transforms the easy way
 
+### Getting started
 From the command line
 ```sh
 npm i babel-install -DE
@@ -12,7 +13,7 @@ If you haven't already, add this to your *~/.zshrc* or *~/.bashrc* and reload yo
 export PATH=./node_modules/.bin:$PATH
 ```
 
-Usage
+#### Usage
 ```sh
 babel-install babel-preset-es2015 babel-plugin-transform-async-to-generator babel-plugin-transform-es2015-arrow-functions
 ```
@@ -36,4 +37,11 @@ package.json
     "babel-plugin-transform-es2015-arrow-functions": "{some latest version here}",
   }
 }
+```
+
+### Development
+
+#### Install pre-commit hook
+```
+npm run install-precommit
 ```
