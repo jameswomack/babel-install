@@ -44,7 +44,7 @@ package.json
 #### Programmatic Usage
 ```js
 import BabelInstaller from 'babel-install';
-BabelInstaller().installAndDeclare(someArrayOfBabelPackageNames\, function (installError) {
+BabelInstaller().installAndDeclare(someArrayOfBabelPackageNames, function (installError) {
   return installError ? console.error(installError) : console.info('Install succeeded');
 ```
 
