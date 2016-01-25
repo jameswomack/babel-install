@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import FS   from 'fs';
 import NPM  from 'npm';
 import Path from 'path';
