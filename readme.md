@@ -13,7 +13,7 @@ If you haven't already, add this to your *~/.zshrc* or *~/.bashrc* and reload yo
 export PATH=./node_modules/.bin:$PATH
 ```
 
-#### Usage
+#### CLI usage
 ```sh
 babel-install babel-preset-es2015 babel-plugin-transform-async-to-generator babel-plugin-transform-es2015-arrow-functions
 ```
@@ -37,6 +37,13 @@ package.json
     "babel-plugin-transform-es2015-arrow-functions": "{some latest version here}",
   }
 }
+```
+
+#### Programmatic Usage
+```js
+import BabelInstaller from 'babel-install';
+BabelInstaller().installAndDeclare(someArrayOfBabelPackageNames\, function (installError) {
+  return installError ? console.error(installError) : console.info('Install succeeded');
 ```
 
 ### Development

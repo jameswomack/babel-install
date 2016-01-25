@@ -9,6 +9,9 @@
     "install-precommit": "ln -s $PWD/pre-commit.sh $PWD/.git/hooks/pre-commit",
     "test": "npm run build && tape -r babel-register test.js | tap-difflet"
   },
+  "bin": {
+    "babel-install": "./install.js"
+  },
   "files": [
     "index.js"
   ],
