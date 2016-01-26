@@ -1,3 +1,9 @@
+# v2.1.0
+## Features
+* Enable passing specific versions:
+  * `babel-install --plugins rewire@v1.0.0-beta-5`
+  * `babel-install babel-plugin-rewire@v1.0.0-beta-5`
+
 # v2.0.0
 ## Fixes
 * `'save-dev'` instead of `'saveDev'`

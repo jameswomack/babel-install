@@ -5,6 +5,8 @@
 
 ## Declare &amp; install Babel plugins &amp; transforms the easy way
 
+`babel-install` is convenience for folks who are frequently trying out Babel plugins and presets. It installs and saves them to the appropriate place in your .babelrc and package.json file. It warns you when you're installing a module that has already been saved to your .babelrc. It also allows you to pass the module names using shorhand via CLI flags powered by yargs-parser. 
+
 ![Screengrabs](http://i.imgur.com/Fe0vzkd.gif)
 
 ### Getting started
@@ -46,12 +48,19 @@ package.json
 }
 ```
 
-There are also several aliases installed to cover common typos
+There are several aliases installed to cover common typos
 * `babel-isntall`
 * `babelisntall`
 * `babelinstall`
 
 I didn't provide an even shorter command ala `bi` to prevent conflicts with other libraries. However, if you'd like a shorter command, [I recommend creating an alias](https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/common-aliases/common-aliases.plugin.zsh).
+
+You can specify specific versions of Babel modules using both the full and short forms. E.g.
+```
+babel-install --plugins rewire@v1.0.0-beta-5
+# is the same as
+babel-install babel-plugin-rewire@v1.0.0-beta-5
+```
 
 #### Programmatic Usage
 ```js

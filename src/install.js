@@ -42,18 +42,26 @@ BabelInstaller.prototype.load = function (next) {
   return this
 }
 
+BabelInstaller.prototype.babelNameForField = function (packageName, field) {
+  const semverMatcher = /@[a-z0-9.-]+$/i
+  const prefix        = BabelPrefixes[field]
+  if (!prefix)
+    throw new ReferenceError(`${field} is an invalid .babelrc field name`)
+  return packageName.replace(semverMatcher, '').replace(prefix, '')
+}
+
 BabelInstaller.prototype.saveToBabel = function (names) {
   const fileName = '.babelrc'
   return writeJSON(fileName, names.reduce((babelrc, name) => {
-    let prefix
+    let field
     eachPrefixName(prfx =>
-      (name.indexOf(BabelPrefixes[prfx]) === 0) && (prefix = prfx))
-    babelrc[prefix] || (babelrc[prefix] = [ ])
-    const savableName = name.replace(BabelPrefixes[prefix],'')
-    if (babelrc[prefix].indexOf(savableName) !== -1) {
+      (name.indexOf(BabelPrefixes[prfx]) === 0) && (field = prfx))
+    babelrc[field] || (babelrc[field] = [ ])
+    const savableName = this.babelNameForField(name, field)
+    if (babelrc[field].indexOf(savableName) !== -1) {
       console.error(`${savableName} (${name}) was already saved to ${fileName}`)
     } else {
-      babelrc[prefix].push(savableName)
+      babelrc[field].push(savableName)
     }
     return babelrc
   }, readJSON(fileName)))
