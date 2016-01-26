@@ -1,6 +1,6 @@
 {
   "name": "babel-install",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Declare & install Babel plugins & transforms the easy way",
   "main": "index.js",
   "scripts": {
