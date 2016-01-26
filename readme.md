@@ -18,6 +18,8 @@ export PATH=./node_modules/.bin:$PATH
 #### CLI usage
 ```sh
 babel-install babel-preset-es2015 babel-plugin-transform-async-to-generator babel-plugin-transform-es2015-arrow-functions
+# or
+babel-install --presets es2015 --plugins transform-async-to-generator transform-es2015-arrow-functions
 ```
 
 ...which results in
@@ -41,6 +43,13 @@ package.json
 }
 ```
 
+There are also several aliases installed to cover common typos
+* `babel-isntall`
+* `babelisntall`
+* `babelinstall`
+
+I didn't provide an even shorter command ala `bi` to prevent conflicts with other libraries. However, if you'd like a shorter command, [I recommend creating an alias](https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/common-aliases/common-aliases.plugin.zsh).
+
 #### Programmatic Usage
 ```js
 import BabelInstaller from 'babel-install';
@@ -54,3 +63,6 @@ BabelInstaller().installAndDeclare(someArrayOfBabelPackageNames, function (insta
 ```
 npm run install-precommit
 ```
+
+#### Roadmap
+* Evaluating adding a `--transforms` flag that's a special subset of `--plugins`

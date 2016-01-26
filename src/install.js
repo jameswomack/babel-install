@@ -5,17 +5,29 @@ import NPM  from 'npm';
 import Path from 'path';
 import yp   from 'yargs-parser';
 
+
+const BabelPrefixes  = { plugins: 'babel-plugin-', presets: 'babel-preset-' }
+const prefixNames    = Object.keys(BabelPrefixes)
+const eachPrefixName = (iter) => prefixNames.forEach(iter)
+
 function BabelInstaller (options = {
   checkBabelRC : true,
   config : {
-    saveDev   : true,
-    saveExact : true
+    'save-dev'   : true,
+    'save-exact' : true
   }
 }) {
   if (!(this instanceof BabelInstaller)) return new BabelInstaller(options);
 
   [ 'checkBabelRC', 'config' ].forEach(k => (this[k] = options[k]))
-  this.pkgNamesFromCLI = yp(process.argv.slice(2))._
+
+  const args = yp(process.argv.slice(2), {
+    array : prefixNames
+  })
+  this.pkgNamesFromCLI = args._
+
+  eachPrefixName(k => args[k] &&
+      this.pkgNamesFromCLI.push(...args[k].map(arg => `${BabelPrefixes[k]}${arg}`)))
 }
 
 BabelInstaller.prototype.load = function (next) {
@@ -34,11 +46,10 @@ BabelInstaller.prototype.saveToBabel = function (names) {
   const fileName = '.babelrc'
   return writeJSON(fileName, names.reduce((babelrc, name) => {
     let prefix
-    Object.keys(babelPrefixes).forEach(prfx => {
-      (name.indexOf(babelPrefixes[prfx]) === 0) && (prefix = prfx)
-    })
+    eachPrefixName(prfx =>
+      (name.indexOf(BabelPrefixes[prfx]) === 0) && (prefix = prfx))
     babelrc[prefix] || (babelrc[prefix] = [ ])
-    const savableName = name.replace(babelPrefixes[prefix],'')
+    const savableName = name.replace(BabelPrefixes[prefix],'')
     if (babelrc[prefix].indexOf(savableName) !== -1) {
       console.error(`${savableName} (${name}) was already saved to ${fileName}`)
     } else {
@@ -73,18 +84,14 @@ BabelInstaller.prototype.installAndDeclare = function (names, next) {
 // Declared but uninstalled plugins & transforms
 BabelInstaller.prototype.getUninstalled = function () {
   const babelrc = readJSON('.babelrc')
-  const pkg = readJSON('package.json')
-  const devPkgNames = Object.keys(pkg.devDependencies)
+  const devDeps = readJSON('package.json').devDependencies
   const missingPackages = [ ]
-  Object.keys(babelPrefixes).forEach(prfx => {
-    if (babelrc[prfx]) {
+  eachPrefixName(prfx => {
+    babelrc[prfx] &&
       babelrc[prfx].forEach(shortName => {
-        const fullName = `${prfx}${shortName}`
-        if (devPkgNames.indexOf(fullName) === -1) {
-          missingPackages.push(fullName)
-        }
+        const fullName = `${babelrc[prfx]}${shortName}`
+        (fullName in devDeps) && missingPackages.push(fullName)
       })
-    }
   })
   return missingPackages
 }
@@ -104,11 +111,6 @@ function readJSON (fileName) {
 function writeJSON (fileName, json) {
   const string = JSON.stringify(json, null, 2) + '\n'
   return FS.writeFileSync(prependCwd(fileName), string, 'ascii')
-}
-
-const babelPrefixes = {
-  plugins : 'babel-plugin-',
-  preset  : 'babel-preset-'
 }
 
 // CLI up

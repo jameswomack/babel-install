@@ -10,8 +10,8 @@ test('BabelInstaller', (t) => {
 
   const bi = BabelInstaller()
   t.ok(bi instanceof BabelInstaller, 'BabelInstaller returns an instance of itself')
-  t.equal(bi.config.saveDev, true)
-  t.equal(bi.config.saveExact, true)
+  t.equal(bi.config['save-dev'],   true, 'save-dev should be on by default')
+  t.equal(bi.config['save-exact'], true, 'save-exact should be on by default')
 
   t.end()
 

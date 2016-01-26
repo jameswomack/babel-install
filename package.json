@@ -10,6 +10,10 @@
     "test": "npm run build && tape -r babel-register test.js | tap-difflet"
   },
   "bin": {
+    "babin": "./index.js",
+    "babelinstall": "./index.js",
+    "babelisntall": "./index.js",
+    "babel-isntall": "./index.js",
     "babel-install": "./index.js"
   },
   "files": [
