@@ -1,5 +1,8 @@
 # babel-install
 
+![Travis badge](https://travis-ci.org/jameswomack/babel-install.svg?branch=master)
+
+
 ## Declare &amp; install Babel plugins &amp; transforms the easy way
 
 ![Screengrabs](http://i.imgur.com/Fe0vzkd.gif)
